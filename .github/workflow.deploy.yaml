@@ -1,0 +1,33 @@
+name: Deploy to Minikube
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: |
+          docker build -t your-docker-repo/my-next-app:$GITHUB_SHA .
+          echo $CR_PAT | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+          docker push your-docker-repo/my-next-app:$GITHUB_SHA
+
+      - name: Update Helm values
+        run: |
+          sed -i "s/tag:.*/tag: $GITHUB_SHA/" helm/my-next-app-chart/values.yaml
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add helm/my-next-app-chart/values.yaml
+          git commit -m "Update image tag to $GITHUB_SHA"
+          git push origin main
+
+      - name: Sync with ArgoCD
+        run: |
+          kubectl apply -f argocd-application.yaml
