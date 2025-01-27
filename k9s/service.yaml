@@ -35,6 +35,6 @@ spec:
     spec:
       containers:
       - name: frontend-app
-        image: redrighthand172/nextjs:v1.0
+        image: redrighthand172/nextjs:v1.1
         ports:
         - containerPort: 8080
