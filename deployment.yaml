@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Frontend-App
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: Frontend-App
+  template:
+    metadata:
+      labels:
+        app: Frontend-App
+    spec:
+      containers:
+      - name: Frontend-App
+        image: redrighthand172/nextjs:latest
+        ports:
+        - containerPort: 8080
