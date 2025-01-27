@@ -2,11 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app.kubernetes.io/instance: Frontend-App
-  name: Frontend-App
+    app.kubernetes.io/instance: frontend-app
+  name: frontend-app
 spec:
   selector:
-    app: Frontend-App
+    app: frontend-app
   ports:
     - protocol: TCP
       port: 8080
@@ -21,20 +21,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/instance: Frontend-App
-  name: Frontend-App
+    app.kubernetes.io/instance: frontend-app
+  name: frontend-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: Frontend-App
+      app: frontend-app
   template:
     metadata:
       labels:
-        app: Frontend-App
+        app: frontend-app
     spec:
       containers:
-      - name: Frontend-App
+      - name: frontend-app
         image: redrighthand172/nextjs:latest
         ports:
         - containerPort: 8080
