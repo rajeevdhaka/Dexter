@@ -1,3 +1,6 @@
+permissions:
+  contents: write
+  
 name: Build, Push Docker Image, and Update Deployment
 
 on:
