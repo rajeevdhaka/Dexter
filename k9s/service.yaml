@@ -35,6 +35,6 @@ spec:
     spec:
       containers:
       - name: frontend-app
-        image: redrighthand172/nextjs:v1.2
+        image: redrighthand172/nextjs:latest
         ports:
         - containerPort: 3000
